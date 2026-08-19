@@ -12,14 +12,10 @@ pub fn main() {
 @target(erlang)
 const recursion_test_cycles = 1_000_000
 
-// JavaScript engines crash when exceeding a certain stack size:
-//
-// - Chrome 106 and NodeJS V16, V18, and V19 crash around 10_000+
-// - Firefox 106 crashes around 35_000+.
-// - Safari 16 crashes around 40_000+.
-@target(javascript)
+// Python's default recursion limit is low; use the conservative value so the
+// recursive tests run under macabre without a stack overflow.
+@target(python)
 const recursion_test_cycles = 40_000
-
 // a |> from_list |> to_list == a
 pub fn to_from_list_test() {
   let testcase = fn(subject) {
